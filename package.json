@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel origin.js -o dist.js"
+    "build": "babel build.js -o dist.js"
   },
   "keywords": [],
   "author": "",
