@@ -1,0 +1,46 @@
+#show-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  height: 100%;
+}
+#scroll-container {
+  flex-basis: 50%;
+  height: 98vh;
+  overflow-y: scroll;
+  text-align: center;
+  margin: 0 20px;
+}
+
+#list {
+  border-bottom: 1px solid rgb(195, 195, 195);
+  margin-bottom: 20px;
+}
+
+#info-p {
+  text-align: start;
+}
+
+#title-div {
+  font-size: 1.8rem;
+}
+
+#writerDateDiv-div {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(195, 195, 195);
+  padding: 10px 0;
+}
+
+#contentDiv-div {
+  margin: 10px 0;
+}
+
+#profileImg-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+
+/* #passwordInput {
+} */

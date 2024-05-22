@@ -3,12 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <!-- <link rel="stylesheet" href="./leftside.css" />
+    <link rel="stylesheet" href="./rightside.css" /> -->
+    <script src="./build.js" defer></script>
     <title>Document</title>
   </head>
   <body>
-    <p id="test">시험용 테스트</p>
-    <p id="test2">시험용 테스트</p>
-    <script src="./dist.js" defer></script>
+    <div id="container">
+      <div id="leftside">
+        <form method="get" id="postForm">
+          <h1>방명록</h1>
+          <label for="title">제목</label>
+          <input type="text" id="title" name="title" required />
+          <label for="content">내용</label>
+          <textarea
+            type="text"
+            id="content"
+            rows="10"
+            name="content"
+            rows="30"
+            required
+          >
+          </textarea>
+          <label for="writer">작성자</label>
+          <input type="text" id="writer" name="writer" required />
+          <div id="passwordDiv">
+            <div id="passwordLabel">
+              <label for="password">비밀번호</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <input type="submit" id="submit" value="등록" />
+          </div>
+        </form>
+        <form method="get" id="searchForm">
+          <h1>조회</h1>
+          <div>
+            <input type="text" id="searchId" />
+            <button type="submit">조회</button>
+          </div>
+        </form>
+      </div>
+      <div id="scroll-container">
+        <div id="show-container"></div>
+      </div>
+    </div>
+    <div id="search-container">조희</div>
   </body>
 </html>

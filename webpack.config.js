@@ -1,5 +1,5 @@
 module.exports = {
-  entry: ["./origin.js", "./origin2.js"],
+  entry: ["./origin.js"],
   output: {
     path: __dirname,
     filename: "build.js",
@@ -7,10 +7,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$/, // 모든 js파일에 대해
         use: {
           loader: "babel-loader",
         },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
