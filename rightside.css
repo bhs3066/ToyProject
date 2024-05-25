@@ -1,19 +1,20 @@
 #show-container {
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
   height: 100%;
 }
 #scroll-container {
-  flex-basis: 50%;
-  height: 98vh;
+  width: 50%;
+  height: 95vh;
   overflow-y: scroll;
   text-align: center;
-  margin: 0 20px;
+  margin: 15px 20px;
 }
 
 #list {
-  border-bottom: 1px solid rgb(195, 195, 195);
+  padding: 10px;
+  background-color: rgb(237, 237, 237);
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
@@ -23,13 +24,24 @@
 
 #title-div {
   font-size: 1.8rem;
+  font-weight: bold;
 }
 
-#writerDateDiv-div {
+#writerContainerDiv-div {
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgb(195, 195, 195);
   padding: 10px 0;
+}
+
+#writerDiv-div {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+#dateDiv-div {
+  color: rgb(150, 150, 150);
+  font-size: 0.8rem;
 }
 
 #contentDiv-div {
@@ -42,5 +54,32 @@
   margin-right: 5px;
 }
 
-/* #passwordInput {
-} */
+#deleteContainer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: end;
+}
+
+#deleteContainer input {
+  padding: 5px;
+  border: none;
+}
+
+.passwordInput {
+  border-radius: 5px 0 0 5px;
+}
+
+#deleteBtn {
+  border-radius: 0 5px 5px 0;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: #43b074;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  #scroll-container {
+    width: 80%;
+  }
+}

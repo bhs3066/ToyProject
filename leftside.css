@@ -25,25 +25,34 @@ body {
   flex-direction: column;
   flex-basis: 35%;
   box-sizing: border-box;
-  background-color: gainsboro;
   height: 100%;
-  padding: 0 20px;
+  margin: 0 20px;
   border-radius: 10px;
 }
 
 #leftside {
-  flex-basis: 40%;
+  width: 40%;
 }
 h1 {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
-input,
-textarea {
+label {
+  font-weight: bold;
+}
+
+.leftform {
   margin: 10px 0 15px 0;
   overflow: auto;
   resize: none;
   padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(195, 195, 195);
+  font-size: 15px;
+}
+
+.leftform:focus {
+  outline: 1px solid #43b074;
 }
 
 ::-webkit-scrollbar {
@@ -56,22 +65,58 @@ textarea {
 
 #password,
 #writer {
-  width: 150px;
+  height: 30px;
 }
 
-#passwordDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 #passwordLabel {
   display: flex;
   flex-direction: column;
 }
 
+#submit {
+  background-color: #43b074;
+  border: none;
+  border-radius: 3px;
+  margin: 0;
+  height: 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#submit:hover {
+  text-decoration: underline;
+}
+
+#searchForm-container {
+  display: flex;
+  width: 50%;
+}
+
+#searchId {
+  padding: 5px;
+  margin: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+#searchInput {
+  padding: 5px;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #43b074;
+  font-weight: bold;
+  color: white;
+  background-color: #43b074;
+  cursor: pointer;
+}
+
 @media (max-width: 800px) {
   #container {
     flex-direction: column;
+  }
+
+  #leftside {
+    width: 80%;
   }
 
   form {

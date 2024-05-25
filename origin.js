@@ -1,6 +1,7 @@
 import style from "./leftside.css";
 import style2 from "./rightside.css";
 import style3 from "./search.css";
+import searchJs from "./search.js";
 
 const url = `http://byun-dding.kro.kr:8000/guestbooks/`;
 
@@ -20,37 +21,52 @@ async function request() {
     list.id = "list"; // id를 추가하여 css가 적용되게 한다.
 
     const title = data.title;
-    console.log(title);
-    const content = data.content;
-    console.log(content);
-    const writer = data.writer;
-    console.log(writer);
 
-    console.log(data.id);
+    const content = data.content;
+
+    const writer = data.writer;
+
+    const writeDate = `${data.created_at.substring(
+      0,
+      4
+    )}.${data.created_at.substring(5, 7)}.${data.created_at.substring(
+      8,
+      10
+    )} ${data.created_at.substring(11, 13)}${data.created_at.substring(
+      13,
+      16
+    )}`;
 
     const info = document.createElement("p");
     info.id = "info-p";
 
     const titleDiv = document.createElement("div");
     titleDiv.id = "title-div";
-    const writerDateDiv = document.createElement("div");
-    writerDateDiv.id = "writerDateDiv-div";
+    const writerContainerDiv = document.createElement("div");
+    writerContainerDiv.id = "writerContainerDiv-div";
     const profileImg = document.createElement("img");
     profileImg.id = "profileImg-img";
     profileImg.src = "./프로필아이콘.png";
+    const writerDateDiv = document.createElement("div");
+    writerDateDiv.id = "writerDateDiv-div";
     const writerDiv = document.createElement("div");
     writerDiv.id = "writerDiv-div";
+    const dateDiv = document.createElement("div");
+    dateDiv.id = "dateDiv-div";
     const contentDiv = document.createElement("div");
     contentDiv.id = "contentDiv-div";
 
     titleDiv.innerText = `${title}`;
     writerDiv.innerText = `${writer}`;
     contentDiv.innerText = `${content}`;
+    dateDiv.innerText = `${writeDate}`;
 
     info.appendChild(titleDiv);
-    writerDateDiv.appendChild(profileImg);
+    writerContainerDiv.appendChild(profileImg);
+    writerContainerDiv.appendChild(writerDateDiv);
     writerDateDiv.appendChild(writerDiv);
-    info.appendChild(writerDateDiv);
+    writerDateDiv.appendChild(dateDiv);
+    info.appendChild(writerContainerDiv);
     info.appendChild(contentDiv);
 
     // 작성된 글의 비밀번호, 버튼
@@ -58,12 +74,14 @@ async function request() {
     const passwordInput = document.createElement("input");
     const deleteBtnInput = document.createElement("input");
 
+    deleteContainer.id = "deleteContainer";
     passwordInput.placeholder = "비밀번호";
-    passwordInput.id = "passwordInput";
+    passwordInput.classList = "passwordInput";
     passwordInput.type = "password";
     passwordInput.required = true;
     deleteBtnInput.type = "submit";
     deleteBtnInput.id = "deleteBtn";
+    deleteBtnInput.value = "삭제";
 
     deleteContainer.appendChild(passwordInput);
     deleteContainer.appendChild(deleteBtnInput);
@@ -74,36 +92,17 @@ async function request() {
 
     deleteBtnInput.addEventListener("click", async () => {
       const password = passwordInput.value;
-      await deleteItem(data.id, password);
+      await deleteItem(data.id, password, passwordInput);
     });
   });
 }
 request();
 
-const searchForm = document.getElementById("searchForm");
-
-searchForm.addEventListener("submit", async (e) => {
-  // submit 버튼을 눌렀을 때 reload되지 않도록 한다.
-  e.preventDefault();
-  const idInput = document.getElementById("searchId");
-  const searchId = idInput.value;
-
-  const searchURL = `${url}${searchId}/`;
-
-  const response = await fetch(searchURL, {
-    method: "GET",
-  });
-
-  const searchdatas = await response.json();
-  console.log(searchdatas);
-});
-
 // POST
 const form = document.getElementById("postForm");
 
 form.addEventListener("submit", async (e) => {
-  console.log(typeof form.password.value);
-  console.log(form.password.value);
+  e.preventDefault();
 
   const formData = {
     password: form.password.value,
@@ -126,20 +125,28 @@ form.addEventListener("submit", async (e) => {
 });
 
 // DELETE
-async function deleteItem(itemId, password) {
-  console.log(itemId);
-  console.log(password);
+async function deleteItem(itemId, password, passwordInput) {
+  //passwordInput 을 받아서 오류처리하고 다시 입력창을 비운다
 
   const deleteURL = `${url}${itemId}/`;
   //URL에 요청을 보낸다.
-  await fetch(deleteURL, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // body로 FormData 객체를 전달해준다.
-    body: JSON.stringify({ password: password }),
-  });
+  try {
+    const response = await fetch(deleteURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body로 FormData 객체를 전달해준다.
+      body: JSON.stringify({ password: password }),
+    });
 
-  window.location.reload();
+    if (response.status === 403) {
+      alert("Wrong Password!!!");
+      passwordInput.value = "";
+    } else if (response.ok) {
+      window.location.reload();
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+  }
 }
